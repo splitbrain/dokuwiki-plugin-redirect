@@ -1,0 +1,12 @@
+====== Redirect Configuration ======
+
+Here you can set up redirects for your wiki. You can redirect to external
+websites or pages in the wiki. All given pagenames have to be absolute
+and cleaned (no specialchars, all lowercase, full namespaces).
+
+Use the follwing format:
+
+<code>
+pagename    internalpage
+otherpage   http://example.com
+</code>

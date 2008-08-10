@@ -1,0 +1,6 @@
+author Andreas Gohr
+email  andi@splitbrain.org
+date   2008-08-10
+name   Redirect Plugin
+desc   Redirect page access based on a central redirection list
+url    http://wiki.splitbrain.org/plugin:redirect
