@@ -17,13 +17,6 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
     var $islogin = false;
 
     /**
-     * return some info
-     */
-    function getInfo(){
-        return confToHash(dirname(__FILE__).'/info.txt');
-    }
-
-    /**
      * register the eventhandlers
      */
     function register(&$controller){
