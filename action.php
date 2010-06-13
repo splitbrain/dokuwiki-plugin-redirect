@@ -1,9 +1,9 @@
 <?php
 /**
- * Login/Logout logging plugin
+ * Redirect plugin
  *
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * @author     Andreas Gohr <gohr@cosmocode.de>
+ * @author     Andreas Gohr <andi@splitbrain.org>
  */
 
 // must be run within Dokuwiki
@@ -13,8 +13,6 @@ if(!defined('DOKU_PLUGIN')) define('DOKU_PLUGIN',DOKU_INC.'lib/plugins/');
 require_once(DOKU_PLUGIN.'action.php');
 
 class action_plugin_redirect extends DokuWiki_Action_Plugin {
-
-    var $islogin = false;
 
     /**
      * register the eventhandlers
@@ -39,9 +37,12 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
         $redirects = confToHash(dirname(__FILE__).'/redirect.conf');
         if($redirects[$ID]){
             if(preg_match('/^https?:\/\//',$redirects[$ID])){
-                header('Location: '.$redirects[$ID]);
+                send_redirect($redirects[$ID]);
             }else{
-                header('Location: '.wl($redirects[$ID] ,'',true));
+                if($this->getConf('showmsg')){
+                    msg(sprintf($this->getLang('redirected'),hsc($ID)));
+                }
+                send_redirect(wl($redirects[$ID] ,'',true));
             }
             exit;
         }
