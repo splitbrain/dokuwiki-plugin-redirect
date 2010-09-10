@@ -1,0 +1,13 @@
+====== Configuration des redirections ======
+
+Ici vous pouvez paramétrer les redirections dans votre wiki.
+Vous pouvez faire des redirections vers d'autres sites web ou vers des pages
+de votre wiki. Les noms de pages doivent être complets (avec les
+eventuels espaces de noms) et exempts de tous caractères spéciaux ou majuscules.
+
+Utilisez la syntaxe suivante :
+
+<code>
+nomdepage      pageinterne
+uneautrepage   http://exemple.fr
+</code>
