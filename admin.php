@@ -37,7 +37,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
      */
     function handle() {
         if($_POST['redirdata']){
-            if(io_saveFile(dirname(__FILE__).'/redirect.conf',$_POST['redirdata'])){
+            if(io_saveFile(dirname(__FILE__).'/redirect.conf',cleanText($_POST['redirdata']))){
                 msg($this->getLang('saved'),1);
             }
         }
