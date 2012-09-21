@@ -1,7 +1,7 @@
 base   redirect
 author Andreas Gohr
 email  andi@splitbrain.org
-date   2010-06-13
+date   2012-09-18
 name   Redirect Plugin
 desc   Redirect page access based on a central redirection list
 url    http://www.dokuwiki.org/plugin:redirect
