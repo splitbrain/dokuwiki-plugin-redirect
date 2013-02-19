@@ -34,7 +34,7 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
 
         if($ACT != 'show') return;
 
-        $redirects = confToHash(dirname(__FILE__).'/redirect.conf');
+        $redirects = confToHash(DOKU_CONF.'/redirect.conf');
         if($redirects[$ID]){
             if(preg_match('/^https?:\/\//',$redirects[$ID])){
                 send_redirect($redirects[$ID]);

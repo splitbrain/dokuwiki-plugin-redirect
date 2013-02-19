@@ -37,7 +37,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
      */
     function handle() {
         if($_POST['redirdata']){
-            if(io_saveFile(dirname(__FILE__).'/redirect.conf',cleanText($_POST['redirdata']))){
+            if(io_saveFile(DOKU_CONF.'/redirect.conf',cleanText($_POST['redirdata']))){
                 msg($this->getLang('saved'),1);
             }
         }
@@ -53,7 +53,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         echo '<input type="hidden" name="do" value="admin" />';
         echo '<input type="hidden" name="page" value="redirect" />';
         echo '<textarea class="edit" rows="15" cols="80" style="height: 300px" name="redirdata">';
-        echo formtext(io_readFile(dirname(__FILE__).'/redirect.conf'));
+        echo formtext(io_readFile(DOKU_CONF.'/redirect.conf'));
         echo '</textarea><br />';
         echo '<input type="submit" value="'.$lang['btn_save'].'" class="button" />';
         echo '</form>';
