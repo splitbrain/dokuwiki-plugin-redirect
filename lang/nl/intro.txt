@@ -1,0 +1,12 @@
+====== Doorstuur Instellingen ======
+
+Hier kun je redirects (doorstuur-acties) instellen voor je wiki. Je kunt gebruikers laten doorsturen naar externe websites of pagina's in de wiki. Alle opgegeven paginanamen moeten absoluut en opgeschoond zijn (geen bijzondere tekens, geen hoofdletters, complete namespaces).
+Voor een anker hash # moeten een backslash \ om te zorgen dat deze goed herkend wordt.
+
+Gebruik het volgende formaat:
+
+<code>
+paginanaam    internepagina
+anderepagina  http://example.com
+eenpagina     internepagina\#alineatitel
+</code>
