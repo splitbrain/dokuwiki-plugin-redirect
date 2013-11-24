@@ -1,0 +1,11 @@
+====== Doorstuur Configuratie ======
+
+Hier kun je doorstuur acties voor jouw wiki instellen. Je kunt naar externe en interne pagina's doorsturen. Alle pagina's dienen volledige URL's te zijn en geschoond van speciale tekens en hoofdletters en volledige naamruimte. Link ankers (#) dienen te worden voorzien van een escape \.
+
+Gebruik het volgende formaat:
+
+<code>
+pagename    internalpage
+otherpage   http://example.com
+somepage    internalpage\#headline
+</code>
