@@ -1,0 +1,11 @@
+====== Redirekta Konfigurado ======
+
+Tie vi povas krei redirektojn por via vikio. Eblas redirekti al eksteraj paĝoj aŭ paĝoj ene de la vikio. Ĉiuj indikitaj paĝnomoj estu absolutaj kaj puraj (neniuj specialaj signoj, ĉio minuskle, kun kompletaj nomspacoj). La ankrokaraktro (#) estu eskapita per \.
+
+Uzu la sekvan formaton:
+
+<code>
+paghnomo internapagho
+aliapagho http://example.com
+iupagho internapagho\#kaplinio
+</code>
