@@ -24,7 +24,6 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
                 'local'   => array(DOKU_CONF.'redirect.local.conf'),
             ),
         ));
-        $this->redirects = retrieveConfig('redirects','confToHash');
     }
 
     /**
@@ -46,6 +45,7 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
 
         if($ACT != 'show') return;
 
+        $this->redirects = retrieveConfig('redirects','confToHash');
         if($this->redirects[$ID]){
             if(preg_match('/^https?:\/\//',$this->redirects[$ID])){
                 send_redirect($this->redirects[$ID]);
