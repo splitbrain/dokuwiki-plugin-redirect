@@ -11,6 +11,27 @@ require_once(DOKU_PLUGIN.'admin.php');
  */
 class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
 
+    var $ConfFile;  // path/to/redirection config file
+
+    function __construct() {
+        // redirection config path options
+        $confPath = array(
+            'legacy'     => dirname(__FILE__).'/redirect.conf', // to be deprecated
+            'default'    => DOKU_CONF.'redirect.conf',
+            'local'      => DOKU_CONF.'redirect.local.conf',
+        );
+
+        // copy config entries from legacy to local
+        if (!file_exists($confPath['local']) && file_exists($confPath['legacy'])) {
+            $data = io_readFile($confPath['legacy']);
+            io_saveFile($confPath['local'], $data);
+            io_saveFile($confPath['legacy'], ''); // blank legacy file
+        }
+
+        // set ConfFile
+        $this->ConfFile = $confPath['local'];
+    }
+
     /**
      * Access for managers allowed
      */
@@ -37,7 +58,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
      */
     function handle() {
         if($_POST['redirdata']){
-            if(io_saveFile(dirname(__FILE__).'/redirect.conf',cleanText($_POST['redirdata']))){
+            if(io_saveFile($this->ConfFile, cleanText($_POST['redirdata']))){
                 msg($this->getLang('saved'),1);
             }
         }
@@ -53,7 +74,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         echo '<input type="hidden" name="do" value="admin" />';
         echo '<input type="hidden" name="page" value="redirect" />';
         echo '<textarea class="edit" rows="15" cols="80" style="height: 300px" name="redirdata">';
-        echo formtext(io_readFile(dirname(__FILE__).'/redirect.conf'));
+        echo formtext(io_readFile($this->ConfFile));
         echo '</textarea><br />';
         echo '<input type="submit" value="'.$lang['btn_save'].'" class="button" />';
         echo '</form>';
