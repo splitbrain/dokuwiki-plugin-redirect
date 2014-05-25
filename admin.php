@@ -25,7 +25,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         if (!file_exists($confPath['local']) && file_exists($confPath['legacy'])) {
             $data = io_readFile($confPath['legacy']);
             io_saveFile($confPath['local'], $data);
-            io_saveFile($confPath['legacy'], ''); // blank legacy file
+            unlink(($confPath['legacy']); // remove legacy file
         }
 
         // set ConfFile
