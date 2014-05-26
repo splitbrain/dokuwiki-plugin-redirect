@@ -11,7 +11,7 @@ require_once(DOKU_PLUGIN.'admin.php');
  */
 class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
 
-    var $ConfFile;  // path/to/redirection config file
+    protected $ConfFile;  // path/to/redirection config file
 
     function __construct() {
         // redirection config path options

@@ -14,7 +14,7 @@ require_once(DOKU_PLUGIN.'action.php');
 
 class action_plugin_redirect extends DokuWiki_Action_Plugin {
 
-    var $redirects;
+    protected $redirects; // redirection hash
 
     function __construct() {
         global $config_cascade;
