@@ -25,7 +25,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         if (!file_exists($confPath['local']) && file_exists($confPath['legacy'])) {
             $data = io_readFile($confPath['legacy']);
             io_saveFile($confPath['local'], $data);
-            unlink(($confPath['legacy']); // remove legacy file
+            unlink($confPath['legacy']); // remove legacy file
         }
 
         // set ConfFile
@@ -58,6 +58,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
      */
     function handle() {
         if($_POST['redirdata']){
+            if(!checkSecurityToken()) return;
             if(io_saveFile($this->ConfFile, cleanText($_POST['redirdata']))){
                 msg($this->getLang('saved'),1);
             }
@@ -73,6 +74,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         echo '<form action="" method="post" >';
         echo '<input type="hidden" name="do" value="admin" />';
         echo '<input type="hidden" name="page" value="redirect" />';
+        echo '<input type="hidden" name="sectok" value="'.getSecurityToken().'" />';
         echo '<textarea class="edit" rows="15" cols="80" style="height: 300px" name="redirdata">';
         echo formtext(io_readFile($this->ConfFile));
         echo '</textarea><br />';
