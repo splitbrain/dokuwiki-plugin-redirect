@@ -13,7 +13,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
 
     protected $ConfFile;  // path/to/redirection config file
 
-    function __construct() {
+    public function __construct() {
         // redirection config path options
         $confPath = array(
             'legacy'     => dirname(__FILE__).'/redirect.conf', // to be deprecated
@@ -35,31 +35,27 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
     /**
      * Access for managers allowed
      */
-    function forAdminOnly(){
-        return false;
-    }
+    public function forAdminOnly() { return false; }
 
     /**
      * return sort order for position in admin menu
      */
-    function getMenuSort() {
-        return 140;
-    }
+    public function getMenuSort() { return 140; }
 
     /**
      * return prompt for admin menu
      */
-    function getMenuText($language) {
+    public function getMenuText($language) {
         return $this->getLang('name');
     }
 
     /**
      * handle user request
      */
-    function handle() {
-        if($_POST['redirdata']){
-            if(!checkSecurityToken()) return;
-            if(io_saveFile($this->ConfFile, cleanText($_POST['redirdata']))){
+    public function handle() {
+        if ($_POST['redirdata']) {
+            if (!checkSecurityToken()) return;
+            if (io_saveFile($this->ConfFile, cleanText($_POST['redirdata']))) {
                 msg($this->getLang('saved'),1);
             }
         }
@@ -68,7 +64,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
     /**
      * output appropriate html
      */
-    function html() {
+    public function html() {
         global $lang;
         echo $this->locale_xhtml('intro');
         echo '<form action="" method="post" >';

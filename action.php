@@ -16,7 +16,7 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
 
     protected $redirects; // redirection hash
 
-    function __construct() {
+    public function __construct() {
         global $config_cascade;
         $config_cascade = array_merge( $config_cascade, array(
             'redirects' => array(
@@ -29,28 +29,24 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
     /**
      * register the eventhandlers
      */
-    function register(&$controller){
-        $controller->register_hook('DOKUWIKI_STARTED',
-                                   'AFTER',
-                                   $this,
-                                   'handle_start',
-                                   array());
+    public function register(Doku_Event_Handler $controller) {
+        $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'handle_start', array());
     }
 
     /**
      * handle event
      */
-    function handle_start(&$event, $param){
+    public function handle_start(&$event, $param){
         global $ID, $ACT;
 
-        if($ACT != 'show') return;
+        if ($ACT != 'show') return;
 
         $this->redirects = retrieveConfig('redirects','confToHash');
         if($this->redirects[$ID]){
-            if(preg_match('/^https?:\/\//',$this->redirects[$ID])){
+            if (preg_match('/^https?:\/\//',$this->redirects[$ID])) {
                 send_redirect($this->redirects[$ID]);
-            }else{
-                if($this->getConf('showmsg')){
+            } else {
+                if ($this->getConf('showmsg')) {
                     msg(sprintf($this->getLang('redirected'),hsc($ID)));
                 }
                 $link = explode('#', $this->redirects[$ID], 2);
