@@ -18,18 +18,17 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         $confPath = array(
             'legacy'     => dirname(__FILE__).'/redirect.conf', // to be deprecated
             'default'    => DOKU_CONF.'redirect.conf',
-            'local'      => DOKU_CONF.'redirect.local.conf',
         );
 
         // copy config entries from legacy to local
-        if (!file_exists($confPath['local']) && file_exists($confPath['legacy'])) {
+        if (!file_exists($confPath['default']) && file_exists($confPath['legacy'])) {
             $data = io_readFile($confPath['legacy']);
-            io_saveFile($confPath['local'], $data);
+            io_saveFile($confPath['default'], $data);
             unlink($confPath['legacy']); // remove legacy file
         }
 
         // set ConfFile
-        $this->ConfFile = $confPath['local'];
+        $this->ConfFile = $confPath['default'];
     }
 
     /**
