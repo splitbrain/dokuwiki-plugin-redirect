@@ -35,17 +35,23 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
         if($ACT != 'show') return;
 
         $redirects = confToHash(dirname(__FILE__).'/redirect.conf');
-        if($redirects[$ID]){
-            if(preg_match('/^https?:\/\//',$redirects[$ID])){
-                send_redirect($redirects[$ID]);
-            }else{
-                if($this->getConf('showmsg')){
-                    msg(sprintf($this->getLang('redirected'),hsc($ID)));
+        
+        if (isset($_GET['redirect']) && $_GET['redirect'] == 'no') {
+			// return if redirection is temporarily by url paramter disabled,
+				return;
+        }else{
+            if($redirects[$ID]){
+                if(preg_match('/^https?:\/\//',$redirects[$ID])){
+                    send_redirect($redirects[$ID]);
+                }else{
+                    if($this->getConf('showmsg')){
+                        msg(sprintf($this->getLang('redirected'),hsc($ID)));
+                    }
+                    $link = explode('#', $redirects[$ID], 2);
+                    send_redirect(wl($link[0] ,'',true) . '#' . rawurlencode($link[1]));
                 }
-                $link = explode('#', $redirects[$ID], 2);
-                send_redirect(wl($link[0] ,'',true) . '#' . rawurlencode($link[1]));
+                exit;
             }
-            exit;
         }
     }
 
