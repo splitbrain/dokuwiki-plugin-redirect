@@ -1,0 +1,11 @@
+====== Configuração de redirecionamentos ======
+
+Aqui é possível configurar redirecionamentos para o seu wiki. Você pode redirecionar para sites externos ou páginas internas do wiki. Os nomes das páginas devem ser completos (contendo seus namespaces), sem caracteres especiais e em letras minúsculas. O caractere de âncora (#) deve ser escapado com \.
+
+Use o formato seguinte:
+
+<code>
+nomedapagina    paginainterna
+outrapagina    http://example.com
+algumapagina    paginainterna\#cabecalho
+</code>
