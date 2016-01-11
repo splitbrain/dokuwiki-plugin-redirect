@@ -5,7 +5,7 @@ websites or pages in the wiki. All given pagenames have to be absolute
 and cleaned (no specialchars, all lowercase, full namespaces).
 Anchor hash must be escaped with a \.
 
-Use the follwing format:
+Use the following format:
 
 <code>
 pagename    internalpage
