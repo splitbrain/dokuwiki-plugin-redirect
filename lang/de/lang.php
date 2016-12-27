@@ -2,7 +2,7 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Dominik Eckelmann <deckelmann@gmail.com>
  */
 $lang['name']                  = 'Einstellung für Seitenweiterleitungen';
