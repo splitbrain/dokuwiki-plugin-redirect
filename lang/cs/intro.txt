@@ -1,0 +1,12 @@
+====== Nastavení přesměrování ======
+
+Na této stránce můžete nastavit přesměrování pro vaši wiki. Můžete přesměrovat na externí webové stránky nebo stránky ve wiki. Všechny názvy stránek musí být absolutní a očištěné (žádné speciální znaky, vše minuskulemi, plné jmenné prostory((namespace))).
+Před kotevním křížkem musí být \.
+
+Používejte tento formát:
+
+<code>
+stranka1   vnitrnistranka
+stranka2   http://priklad.cz
+stranka3   vnitrnistranka\#nadpis
+</code>
