@@ -1,12 +1,30 @@
 <?php
+/**
+ * Redirect plugin
+ *
+ * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
+ * @author     Andreas Gohr <andi@splitbrain.org>
+ */
+
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
 /**
- * All DokuWiki plugins to extend the admin function
- * need to inherit from this class
+ * Class admin_plugin_redirect
+ *
+ * Provide editing mechanism for configuration
  */
 class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
+
+    /** @var helper_plugin_redirect */
+    protected $hlp;
+
+    /**
+     * admin_plugin_redirect constructor.
+     */
+    public function __construct() {
+        $this->hlp = plugin_load('helper', 'redirect');
+    }
 
     /**
      * Access for managers allowed
@@ -33,8 +51,9 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
      * handle user request
      */
     public function handle() {
-        if($_POST['redirdata']) {
-            if(io_saveFile(dirname(__FILE__) . '/redirect.conf', cleanText($_POST['redirdata']))) {
+        global $INPUT;
+        if($INPUT->post->has('redirdata')) {
+            if($this->hlp->saveConfigFile($INPUT->post->str('redirdata'))) {
                 msg($this->getLang('saved'), 1);
             }
         }
@@ -50,7 +69,7 @@ class admin_plugin_redirect extends DokuWiki_Admin_Plugin {
         echo '<input type="hidden" name="do" value="admin" />';
         echo '<input type="hidden" name="page" value="redirect" />';
         echo '<textarea class="edit" rows="15" cols="80" style="height: 300px" name="redirdata">';
-        echo formtext(io_readFile(dirname(__FILE__) . '/redirect.conf'));
+        echo formtext($this->hlp->loadConfigFile());
         echo '</textarea><br />';
         echo '<input type="submit" value="' . $lang['btn_save'] . '" class="button" />';
         echo '</form>';
