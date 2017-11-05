@@ -1,3 +1,11 @@
 ====== Redirect Konfiguration ======
 
-Hier kannst du die Weiterleitungen für dein Wiki einstellen. Du kannst zu externen Webseiten oder Wikiseiten weiterleiten. Alle angaben müssen absolut sein. Wiki IDs dürfen keine Sonderzeichen enthalten, kleingeschrieben und den kompletten Namensraum angeben. Der Raute bei einem Seitenanker muss ein \ vorangestellt sein (\#).
+Hier können Sie Weiterleitungen für Wiki-Seiten konfigurieren. Sie können zu externen Webseiten oder Wikiseiten weiterleiten. Alle Angaben müssen absolut sein. Wiki-IDs dürfen keine Sonderzeichen enthalten und müssen kleingeschrieben werden. Es muss immer der komplette Namensraum angeben werden. Der Raute bei einem Seitenanker muss ein \ vorangestellt sein (\#).
+
+Nutzen Sie das folgende Format:
+
+<code>
+pagename    internalpage
+otherpage   http://example.com
+somepage    internalpage\#headline
+</code>

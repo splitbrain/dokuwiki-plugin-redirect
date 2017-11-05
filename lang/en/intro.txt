@@ -1,9 +1,6 @@
 ====== Redirect Configuration ======
 
-Here you can set up redirects for your wiki. You can redirect to external
-websites or pages in the wiki. All given pagenames have to be absolute
-and cleaned (no specialchars, all lowercase, full namespaces).
-Anchor hash must be escaped with a \.
+Here you can set up redirects for your wiki. You can redirect to external websites or pages in the wiki. All given pagenames have to be absolute and cleaned (no specialchars, all lowercase, full namespaces). Anchor hash must be escaped with a \.
 
 Use the following format:
 

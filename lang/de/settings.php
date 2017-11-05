@@ -2,7 +2,8 @@
 
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
- * 
+ *
  * @author Dominik Eckelmann <deckelmann@gmail.com>
+ * @author Andreas Gohr <andi@splitbrain.org>
  */
-$lang['showmsg']               = 'Zeige dem Benutzer eine Information über die Weiterleitung an.';
+$lang['showmsg']               = 'Nutzer bei Weiterleitungen informieren';
