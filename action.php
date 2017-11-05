@@ -19,7 +19,7 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
      *
      * @param Doku_Event_Handler $controller
      */
-    function register(Doku_Event_Handler $controller) {
+    public function register(Doku_Event_Handler $controller) {
         $controller->register_hook(
             'DOKUWIKI_STARTED',
             'AFTER',
@@ -35,7 +35,7 @@ class action_plugin_redirect extends DokuWiki_Action_Plugin {
      * @param Doku_Event $event
      * @param array $param
      */
-    function handle_start(Doku_Event $event, $param) {
+    public function handle_start(Doku_Event $event, $param) {
         global $ID;
         global $ACT;
         global $INPUT;
