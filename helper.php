@@ -77,4 +77,12 @@ class helper_plugin_redirect extends DokuWiki_Admin_Plugin {
 
         return $url;
     }
+
+    /**
+     * Dummy implementation of an abstract method
+     */
+    public function html()
+    {
+        return '';
+    }
 }
