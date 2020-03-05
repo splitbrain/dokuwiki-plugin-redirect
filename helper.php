@@ -64,22 +64,28 @@ class helper_plugin_redirect extends DokuWiki_Admin_Plugin {
         $redirects = confToHash(self::CONFIG_FILE);
         if(empty($redirects[$id])) return false;
 
-        //search for conditional redirect
-        list($redirect, $condition) = explode(' ?', $redirects[$id], 2);
-        if ($condition && !self::executeCondition($condition)) return false;
+        $rules = explode('|', $redirects[$id]);
+        foreach ($rules as $rule) {
+            //search for conditional redirect
+            list($redirect, $condition) = explode(' ?', $rule, 2);
+            if ($condition && !self::executeCondition($condition)) continue;
 
-        if(preg_match('/^https?:\/\//', $redirect)) {
-            $url = $redirects[$id];
-        } else {
-            if($this->getConf('showmsg')) {
-                msg(sprintf($this->getLang('redirected'), hsc($id)));
+            $redirect = trim($redirect);
+            if(preg_match('/^https?:\/\//', $redirect)) {
+                $url = $redirects[$id];
+            } else {
+                if($this->getConf('showmsg')) {
+                    msg(sprintf($this->getLang('redirected'), hsc($id)));
+                }
+                $link = explode('#', $redirect, 2);
+                $url = wl($link[0], '', true, '&');
+                if(isset($link[1])) $url .= '#' . rawurlencode($link[1]);
             }
-            $link = explode('#', $redirect, 2);
-            $url = wl($link[0], '', true, '&');
-            if(isset($link[1])) $url .= '#' . rawurlencode($link[1]);
+
+            return $url;
         }
 
-        return $url;
+        return false;
     }
 
     /**
