@@ -62,6 +62,29 @@ class helper_plugin_redirect extends DokuWiki_Admin_Plugin {
      */
     public function getRedirectURL($id) {
         $redirects = confToHash(self::CONFIG_FILE);
+
+        /*
+        * Support for wildcard redirects
+        *
+        * Examples:
+        * myteam:*        contacts:mycompany:mydepartment:myteam:$1
+        * client:*        contacts:clients:clientname:$1
+        * server:*        it:system_dpt:resources:servers:$1
+        *
+        */
+         $newID = "";
+         foreach ( $redirects as $mask=>$target )
+              {
+               $regex_mask = '/^'.preg_replace( '/\*/', '(.*)', $mask ).'/';
+               if ( preg_match( $regex_mask, $id, $matches ) )
+               {
+                       $newID = preg_replace( $regex_mask, $target, $id );
+                       break;
+               }
+              }
+
+         $redirects[$id] = $newID;
+
         if(empty($redirects[$id])) return false;
 
         if(preg_match('/^https?:\/\//', $redirects[$id])) {
