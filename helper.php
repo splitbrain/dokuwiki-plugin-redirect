@@ -64,18 +64,60 @@ class helper_plugin_redirect extends DokuWiki_Admin_Plugin {
         $redirects = confToHash(self::CONFIG_FILE);
         if(empty($redirects[$id])) return false;
 
-        if(preg_match('/^https?:\/\//', $redirects[$id])) {
-            $url = $redirects[$id];
-        } else {
-            if($this->getConf('showmsg')) {
-                msg(sprintf($this->getLang('redirected'), hsc($id)));
+        $rules = explode('|', $redirects[$id]);
+        foreach ($rules as $rule) {
+            //search for conditional redirect
+            list($redirect, $condition) = explode(' ?', $rule, 2);
+            if ($condition && !self::executeCondition($condition)) continue;
+
+            $redirect = trim($redirect);
+            if(preg_match('/^https?:\/\//', $redirect)) {
+                $url = $redirects[$id];
+            } else {
+                if($this->getConf('showmsg')) {
+                    msg(sprintf($this->getLang('redirected'), hsc($id)));
+                }
+                $link = explode('#', $redirect, 2);
+                $url = wl($link[0], '', true, '&');
+                if(isset($link[1])) $url .= '#' . rawurlencode($link[1]);
             }
-            $link = explode('#', $redirects[$id], 2);
-            $url = wl($link[0], '', true, '&');
-            if(isset($link[1])) $url .= '#' . rawurlencode($link[1]);
+
+            return $url;
         }
 
-        return $url;
+        return false;
+    }
+
+    /**
+     * Executes a redirect condition and returns its result
+     *
+     * @param string $condition the condition to execute
+     *
+     * @return bool true if condition is met
+     */
+    public function executeCondition($condition) {
+        global $INFO;
+
+        $operators = ['='];
+        $variables = [
+            '$USER$' => $INFO['client'],
+            '$USER.grps$' => $INFO['userinfo']['grps']
+        ];
+
+        $pattern = '/(' . implode('|', $operators) . ')/';
+        $split = preg_split($pattern, $condition, 3, PREG_SPLIT_DELIM_CAPTURE);
+
+        if (count($split) != 3) return false; //no valid condition
+
+        list($left, $op, $right) = array_map('trim', $split);
+        switch ($left) {
+            case '$USER$':
+                return $variables[$left] == $right;
+            case '$USER.grps$':
+                return is_array($variables[$left]) && in_array($right, $variables[$left]);
+            default:
+                return $left == $right;
+        }
     }
 
     /**
