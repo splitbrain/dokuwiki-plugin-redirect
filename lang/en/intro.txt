@@ -5,7 +5,7 @@ Here you can set up redirects for your wiki. You can redirect to external websit
 Use the following format:
 
 <code>
-pagename    internalpage
-otherpage   http://example.com
-somepage    internalpage\#headline
+pagename    internalpage [? condition | another_page ? condition]
+otherpage   http://example.com [? condition | another_page ? condition]
+somepage    internalpage\#headline [? condition | another_page ? condition]
 </code>
